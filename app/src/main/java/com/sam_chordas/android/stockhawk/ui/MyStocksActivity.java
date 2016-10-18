@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
+import com.sam_chordas.android.stockhawk.data.QuoteDatabase;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.rest.QuoteCursorAdapter;
 import com.sam_chordas.android.stockhawk.rest.RecyclerViewItemClickListener;
@@ -57,7 +58,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mContext = this;
-    ConnectivityManager cm =
+    final ConnectivityManager cm =
         (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -84,8 +85,21 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
             new RecyclerViewItemClickListener.OnItemClickListener() {
               @Override public void onItemClick(View v, int position) {
-                //TODO:
-                // do something on item click
+                Intent intent = new Intent(MyStocksActivity.this, DetailStocksActivity.class);
+                Bundle args = new Bundle();
+
+                long id = mCursorAdapter.getItemId(position);
+                Cursor cursor = mCursorAdapter.getCursor();
+                getContentResolver().query(
+                        QuoteProvider.Quotes.CONTENT_URI,
+                        new String[]{QuoteColumns.SYMBOL},
+                        QuoteDatabase.QUOTES + "." + QuoteColumns._ID + "=?",
+                        new String[]{String.valueOf(id)},
+                        null);
+                String symbol = cursor.getString(1);
+                args.putString("symbol", symbol);
+                intent.putExtras(args);
+                startActivity(intent);
               }
             }));
     recyclerView.setAdapter(mCursorAdapter);
@@ -112,7 +126,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                             Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
                     toast.show();
-                    return;
                   } else {
                     // Add the stock to DB
                     mServiceIntent.putExtra("tag", "add");
@@ -163,7 +176,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   }
 
   public void networkToast(){
-    Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
+    Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_LONG).show();
   }
 
   public void restoreActionBar() {
