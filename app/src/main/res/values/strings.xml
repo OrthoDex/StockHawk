@@ -1,17 +1,44 @@
 <resources>
   <string name="app_name">Stock Hawk</string>
 
-  <string name="action_example">Example action</string>
-
+  <!--
+         By convention, "action" denotes that this String will be used as the label for an Action,
+         typically from the action bar.  The ActionBar is limited real estate, so shorter is better.
+    -->
   <string name="action_settings">Settings</string>
+  <string name="action_example">Example action</string>
   <string name="action_change_units">Change Units</string>
+
+  <!-- Used to search for stocks of a company using it's listed symbol -->
+
   <string name="symbol_search">Symbol Search</string>
+
+  <!-- Content Description for the floating action button -->
   <string name="content_test">Search for a Stock Symbol</string>
+  <!-- Facebook stock symbol as input hint -->
   <string name="input_hint" translatable="false">FB</string>
+
+  <!-- Prefilled input, set to empty -->
   <string name="input_prefill"></string>
+
+  <!-- Used to notify the user of the absence of internet connection -->
   <string name="network_toast">Uh-oh! This app requires an internet connection</string>
+
+  <!-- Alternate content description for the floating action button -->
   <string name="add_stocks">Add Stocks</string>
+
+  <!-- Notifying the user of invalid input -->
   <string name="stock_not_found">Stocks for this symbol not found!</string>
+
+  <!-- App Widget title -->
   <string name="title_widget_today">Stocks Today</string>
-  <string name="app_widget_description">Stocks for this symbol not found!</string>
+
+  <!-- Used to notify the user of a pre-existing stock -->
+  <string name="stock_save">This stock is already saved!</string>
+
+  <!-- App Widget content description -->
+  <string name="widget_view_description">StockHawk Widget</string>
+
+  <!-- Notify the user of an invalid message -->
+  <string name="validation_message">Please enter valid input (lowercase or uppercase alphabets)</string>
 </resources>

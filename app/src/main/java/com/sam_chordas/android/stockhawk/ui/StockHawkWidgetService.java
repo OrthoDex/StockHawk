@@ -61,7 +61,6 @@ public class StockHawkWidgetService extends IntentService {
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, detailIntent, 0);
 
             rv.setOnClickPendingIntent(R.id.app_widget_main, pendingIntent);
-            rv.setContentDescription(R.id.app_widget_main, getString(R.string.app_widget_description));
 
             appWidgetManager.updateAppWidget(appwidgetId, rv);
         }

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.db.chart.Tools;
 import com.db.chart.model.LineSet;
@@ -14,6 +15,7 @@ import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.squareup.okhttp.internal.Util;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -56,7 +58,7 @@ public class DetailStocksActivity extends AppCompatActivity {
             for (int i = 0; i < floats.length; i++)
                 stockValues[i] = floats[i].floatValue();
 
-            LineSet lineSet = new LineSet(Utils.getMonthValues(), stockValues);
+            LineSet lineSet = new LineSet(Utils.getMonthValues(stockValues.length), stockValues);
             lineSet.setColor(Color.parseColor("#ffffff"))
                     .setDotsColor(Color.parseColor("#000000"))
                     .setThickness(4)

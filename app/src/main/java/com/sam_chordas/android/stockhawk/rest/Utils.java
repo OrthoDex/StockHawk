@@ -80,7 +80,6 @@ public class Utils {
         QuoteProvider.Quotes.CONTENT_URI);
     try {
       String change = jsonObject.getString("Change");
-
       if (!change.equals("null") && change != null) {
         builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
         builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
@@ -143,15 +142,23 @@ public class Utils {
     return stockValues;
   }
 
-  public static String[] getMonthValues() {
+  public static String[] getMonthValues(int length) {
     Calendar now = Calendar.getInstance();
-    String[] months = new String[4];
+    String[] months = new String[length];
     now.add(Calendar.MONTH, +1);
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < length; i++) {
       now.add(Calendar.MONTH, -1);
       months[i] = new SimpleDateFormat("MMMM").format(now.getTime());
     }
     return months;
+  }
+
+  public static boolean validateInput(String inputString) {
+    //check for lowercase and uppercase alphabets
+    if (!inputString.matches("[a-zA-Z]*"))
+      return false;
+
+    return true;
   }
 }
